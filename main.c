@@ -47,3 +47,15 @@ void tarefaBotaoB(void *parametros) {
         vTaskDelay(pdMS_TO_TICKS(50));              // Aguarda 50ms (delay do FreeRTOS)
     }
 }
+
+int main() {
+    stdio_init_all();                               // Inicializa a saída padrão (UART/USB)
+
+    // Cria a tarefa para o botão A e LED vermelho
+    xTaskCreate(tarefaBotaoA, "TarefaBotaoA", 256, NULL, 1, NULL);
+    // Cria a tarefa para o botão B e LED azul
+    xTaskCreate(tarefaBotaoB, "TarefaBotaoB", 256, NULL, 1, NULL);
+
+    vTaskStartScheduler();                          // Inicia o escalonador do FreeRTOS
+    return 0;
+}
