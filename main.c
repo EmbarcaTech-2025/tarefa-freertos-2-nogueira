@@ -2,26 +2,11 @@
 #include "task.h"
 #include <stdio.h>
 #include "pico/stdlib.h"
-
 #include "hardware/i2c.h"
 
-void led_task() {
-  const uint LED_PIN = 11;
-  gpio_init(LED_PIN);
-  gpio_set_dir(LED_PIN, GPIO_OUT);
-  while (true) {
-    gpio_put(LED_PIN, 1);
-    vTaskDelay(100);
-    gpio_put(LED_PIN, 0);
-    vTaskDelay(100);
-  }
-}
+// Definição dos pinos conforme a placa BitDogLab
+#define PINO_BOTAO_A 5         // Pino do botão A
+#define PINO_BOTAO_B 6         // Pino do botão B
+#define PINO_LED_VERMELHO 12    // Pino do LED vermelho
+#define PINO_LED_AZUL 13        // Pino do LED azul
 
-int main() {
-  stdio_init_all();
-
-  xTaskCreate(led_task, "LED_Task", 256, NULL, 1, NULL);
-  vTaskStartScheduler();
-
-  while(1){};
-}
